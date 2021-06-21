@@ -45,5 +45,7 @@ jobs:
         run: docker build --pull -t teammates:latest .
       - name: Run application Docker
         run: docker run -d -e DOCKER_GATEWAY_HOST=172.17.0.1 -p 8080:8080 teammates:latest
+      - name: Wait until server is running
+        run: ./wait-for-server.sh
       - name: Start Tests 
         run: xvfb-run --server-args="-screen 0 1024x768x24" ./gradlew e2eTests 
